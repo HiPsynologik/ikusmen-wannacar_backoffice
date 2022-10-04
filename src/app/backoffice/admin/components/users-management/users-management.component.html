@@ -1,0 +1,77 @@
+<div class="new-flow">
+    <button mat-button class="new-action-btn" [routerLink]="['/admin/users/new']" *ngIf="create"><i class="btn-icon material-icons">add</i>Nuevo registro</button>
+</div>
+<div class="split-container user-roles-options">
+    <div class="user-roles-navigation">
+        <div class="link" matRipple [routerLink]="['/admin/users']" routerLinkActive="active" >Administración de Usuarios</div>
+        <div class="link" matRipple [routerLink]="['/admin/roles']" routerLinkActive="active" >Administración de roles</div>
+    </div>
+    <div class="user-roles-search-filter">
+        <form>
+            <div class="search-element search-filter">
+                <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <i matPrefix class="material-icons">search</i>
+                    <input type="tel" matInput>
+                </mat-form-field>
+            </div>
+            <div class="search-element select-filter">
+                <mat-form-field>
+                    <mat-label>Filtro</mat-label>
+                    <i matPrefix class="material-icons">filter_list</i>
+                    <mat-select>
+                        <mat-option value="">Opción filtro 1</mat-option>
+                        <mat-option value="">Opción filtro 2</mat-option>
+                        <mat-option value="">Opción filtro 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="users_roles_table_container">
+    <!-- Tabla -->
+    <div class="ps-table" *ngIf="list">
+        <!-- Cabecera -->
+        <div class="ps-row header">
+            <div class="ps-cell">Nombre</div>
+            <div class="ps-cell">Correo electrónico</div>
+            <div class="ps-cell">Cargo / puesto</div>
+            <div class="ps-cell">Rol</div>
+            <div class="ps-cell"></div>
+            <div class="ps-cell"></div>
+        </div>
+
+        <!-- Fila -->
+        <div class="ps-row" *ngFor="let user of userList">
+            <div class="ps-cell">{{ user.name }}</div>
+            <div class="ps-cell">{{ user.email }}</div>
+            <div class="ps-cell">{{ user.position }}</div>
+            <div class="ps-cell">{{ user.role.name }}</div>
+            <div class="ps-cell">
+                <div class="verification-status" [ngClass]="classValidUser(user)">
+                    <div class="verified status-wrapper">
+                        <span class="ico"><i class="material-icons">done</i></span>
+                        <span class="text">Correo verificado</span>
+                    </div>
+                    <div class="not-verified status-wrapper">
+                        <span class="ico"><i class="material-icons">query_builder</i></span>
+                        <span class="text">Pendiente verificación</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ps-cell">
+                <div class="user-actions">
+                    <div class="user-btn" matRipple (click)="edit(user)" *ngIf="editScreen">
+                        <i class="material-icons">edit_outline</i>
+                    </div>
+                    <div class="user-btn" matRipple (click)="showDeletingUserAlert(user)" *ngIf="delete">
+                        <i class="material-icons">delete_outline</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tabla -->
+</div>
+<mat-paginator [length]="100"  [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

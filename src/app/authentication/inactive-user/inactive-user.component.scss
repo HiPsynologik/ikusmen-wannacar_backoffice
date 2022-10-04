@@ -1,0 +1,42 @@
+.screen-wrapper{
+    margin: 20px;
+    display: flex;
+    height: inherit;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 40px);
+    border-radius: 0 4px 4px 0;
+    background-color: #FAFAFA;
+    min-height: calc(100vh - 40px);
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.2);
+}
+
+.screen-image{
+    text-align: center;
+    img{
+        width: 100%;
+        max-width: 100px;
+    }
+}
+
+.screen-title{
+    color: #5B6670;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 35px;
+    text-align: center;
+    margin-top: 70px;
+}
+
+.screen-description{
+    margin-top: 30px;
+    color: #5B6670;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 35px;
+    text-align: center;
+    p{
+        margin: 0 auto;
+        max-width: 818px;
+    }
+}

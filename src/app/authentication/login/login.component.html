@@ -1,0 +1,20 @@
+<div class="title">
+    <p>¡Que gusto tenerte de vuelta!</p>
+</div>
+<div class="instructions">
+    <p>Ingresa tu correo y contraseña para iniciar sesión</p>
+</div>
+<form [formGroup]="formLogin">
+    <mat-form-field>
+        <mat-label>Ingresa tu correo electrónico</mat-label>
+        <input matInput type="email" formControlName="user">
+        <mat-error *ngIf=" formLogin.get('user').dirty && formLogin.get('user').hasError('email')">error email</mat-error>
+    </mat-form-field>
+    <wnbo-input-pass formControlName="pass" [placeholder]="'Ingresa tu contraseña'" ></wnbo-input-pass>
+    <div class="password-forgot-link">
+        <a [routerLink]="['password-recovery']" routerLinkActive="router-link-active" >¿Olvidaste tu contraseña?</a>
+    </div>
+    <div class="login-action">
+        <button class="action-foward-btn" mat-flat-button (click)="login()" [disabled]="!formLogin.valid">Iniciar sesión</button>
+    </div>
+</form>

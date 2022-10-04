@@ -1,0 +1,61 @@
+:host(wnbo-authentication){
+    background-color: #E7EDEE;
+}
+
+#authentication-wrapper{
+    margin: 20px;
+    border-radius: 0 4px 4px 0;
+    background-color: #FAFAFA;
+    min-height: calc(100vh - 40px);
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.2);
+}
+
+.split-container{
+    width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.images-column{
+    width: 50%;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    .wanacar-logo{
+        width: 100%;
+        max-width: 280px;
+        margin-bottom: 35px;
+    }
+}
+
+.authentication-column{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+    min-height: calc(100vh - 40px);
+}
+
+.authentication-image{
+    width: 100%;
+    max-width: 180px;
+}
+
+/* Media queries */
+@media(max-width: 1023px){
+    .split-container{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .authentication-column,
+    .images-column{
+        width: 100%;
+        padding: 20px;
+        min-height: initial;
+    }
+}

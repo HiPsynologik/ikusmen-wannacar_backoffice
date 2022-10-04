@@ -1,0 +1,49 @@
+.title{
+    color: #062749;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 38px;
+    text-align: center;
+    margin-bottom: 5px;
+    letter-spacing: -0.47px;
+}
+
+.instructions{
+    color: #5B6670;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    margin-bottom: 35px;
+    letter-spacing: -0.3px;
+}
+
+form{
+    width: 100%;
+    max-width: 320px;
+}
+
+mat-form-field.mat-form-field{
+    display: block;
+}
+
+.password-forgot-link{
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 20px;
+    line-height: 16px;
+    letter-spacing: -0.21px;
+}
+
+.login-action{
+    margin-top: 50px;
+}
+
+/* Media queries */
+@media(max-width: 1023px){
+    .instructions{
+        text-align: center;
+    }
+    form{
+        margin: 0 auto;
+    }
+}

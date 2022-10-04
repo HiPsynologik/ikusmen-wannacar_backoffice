@@ -1,0 +1,165 @@
+<div class="results-main" *ngIf="!showHistory; else historicalCalls">
+    <p class="request-id">Solicitud <span>{{requestId}}</span></p>
+    <div class="dp-flex-row">
+        <div class="phone-validation" *ngIf="callsResults">
+            <p class="validation-title">Validación telefónica</p>
+            <div class="question-list" *ngIf="callsResults.validation.data">
+                <p *ngFor="let item of callsResults.validation.data.questionList">
+                    <i
+                        class="material-icons {{(item.value == 'si')? 'correct' : 'error'}}">{{(item.value == 'si')? 'done' : 'close'}}</i>
+                    {{item.label}}
+                </p>
+            </div>
+            <div class="open-questions">
+                <div class="question-item">
+                    <p class="title">Primer contacto</p>
+                    <p class="data">{{callsResults.created_at| date}}</p>
+                </div>
+                <div class="question-item">
+                    <p class="title">ultima llamada</p>
+                    <p class="data">{{callsResults.validation.created_at| date}}</p>
+                </div>
+                <div class="question-item">
+                    <p class="title">número de llamadas</p>
+                    <p class="data">{{callsResults.no_calls}}</p>
+                </div>
+                <div class="question-item">
+                    <p class="title">sms enviados</p>
+                    <p class="data" *ngIf="callsResults.validation.no_sms">{{callsResults.validation.no_sms}}</p>
+                </div>
+                <div class="question-item" *ngIf="callsResults.validation.category == 'applicant_answered'">
+                    <p class="title">tiempo de residencia</p>
+                    <p class="data">
+                        <span
+                            *ngIf="callsResults.validation.data.residence_time_years.value != 0">{{callsResults.validation.data.residence_time_years.value}}
+                            años</span>
+                        <span
+                            *ngIf="callsResults.validation.data.residence_time_months.value != 0">{{callsResults.validation.data.residence_time_months.value}}
+                            meses</span>
+                    </p>
+                </div>
+                <div class="question-item" *ngIf="callsResults.validation.category == 'not_located'">
+                    <p class="title">Estatus de la llamada</p>
+                    <p class="data">No localizado</p>
+                </div>
+                <div class="question-item" *ngIf="callsResults.validation.category == 'applicant_answered'">
+                    <p class="title">dependientes</p>
+                    <p class="data">{{callsResults.validation.data.dependents.value}}</p>
+                </div>
+                <div class="question-item" *ngIf="callsResults.validation.category == 'applicant_answered'">
+                    <p class="title">tipo de vivienda</p>
+                    <p class="data">{{callsResults.validation.data.living_place.value}}</p>
+                </div>
+                <div class="question-item" *ngIf="callsResults.validation.category == 'applicant_answered'">
+                    <p class="title">estado civil</p>
+                    <p class="data">{{callsResults.validation.data.marital_status.value}}</p>
+                </div>
+            </div>
+            <div class="buttons-section" *ngIf="!isSaved">
+                <button class="back-btn" mat-button (click)="openModalAction(3)">
+                    <img src="assets/images/reject-icon.svg" alt="">RECHAZAR</button>
+                <button mat-button class="new-action-btn"
+                    *ngIf="(callsResults.validation.category == 'applicant_answered') && (callsResults.validation.subcategory == 'continue_request')"
+                    (click)="openModalAction(2)">
+                    <i class="btn-icon material-icons">done</i> APROBAR
+                </button>
+            </div>
+        </div>
+        <div class="reference-validation"
+            *ngIf="callsResults && callsResults.validation.subcategory == 'continue_request'">
+            <p class="validation-title">Referencias personales</p>
+            <div class="reference-info">
+                <p class="name">{{referencesData.work.name}}</p>
+                <p class="relationship">Relación laboral:
+                    {{(callsResults.references.work.category == 'applicant_answered') ? (callsResults.references.work.data.relationship.value) : 'Sin confirmar'}}
+                </p>
+                <div class="question-list" *ngIf="callsResults.references.work.data; else noWorkContacted">
+                    <p *ngFor="let item of callsResults.references.work.data.questionList">
+                        <i
+                            class="material-icons {{(((item.value).toUpperCase()) == 'SI')? 'correct' : 'error'}}">{{(item.value == 'si')? 'done' : 'close'}}</i>
+                        {{item.label}}
+                    </p>
+                </div>
+                <ng-template #noWorkContacted>
+                    <div class="no-located">
+                        <p>
+                            <img src="assets/images/no-located.svg" alt="">
+                            No localizado
+                        </p>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="reference-info">
+                <p class="name">{{referencesData.familiar.name}}</p>
+                <p class="relationship">Parentesco:
+                    {{(callsResults.references.family.category == 'applicant_answered') ? (callsResults.references.family.data.relationship.value) : 'Sin confirmar'}}
+                </p>
+                <div class="question-list" *ngIf="callsResults.references.family.data; else noFamContacted">
+                    <p *ngFor="let item of callsResults.references.family.data.questionList">
+                        <i
+                            class="material-icons {{(item.value == 'si')? 'correct' : 'error'}}">{{(item.value == 'si')? 'done' : 'close'}}</i>
+                        {{item.label}}
+                    </p>
+                </div>
+                <ng-template #noFamContacted>
+                    <div class="no-located">
+                        <p>
+                            <img src="assets/images/no-located.svg" alt="">
+                            No localizado
+                        </p>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="reference-info">
+                <p class="name">{{referencesData.known.name}}</p>
+                <p class="relationship">Relación:
+                    {{(callsResults.references.known.category == 'applicant_answered') ? (callsResults.references.known.data.relationship.value) : 'Sin confirmar'}}
+                </p>
+                <div class="question-list" *ngIf="callsResults.references.known.data; else noKnownContacted">
+                    <p *ngFor="let item of callsResults.references.known.data.questionList">
+                        <i
+                            class="material-icons {{(item.value == 'si')? 'correct' : 'error'}}">{{(item.value == 'si')? 'done' : 'close'}}</i>
+                        {{item.label}}
+                    </p>
+                </div>
+                <ng-template #noKnownContacted>
+                    <div class="no-located">
+                        <p>
+                            <img src="assets/images/no-located.svg" alt="">
+                            No localizado
+                        </p>
+                    </div>
+                </ng-template>
+                <div *ngIf="callsResults.references.known.additional_comment" class="aditional-comment">
+                    <p>{{callsResults.references.known.additional_comment}}</p>
+                </div>
+            </div>
+            <div class="comment-section">
+                <textarea *ngIf="!isSaved; else commentReview" matInput [(ngModel)]="aditionalComment"
+                    placeholder="Agregar Comentario"></textarea>
+                <ng-template #commentReview>
+                    <p>{{callsResults.additional_comment_credit}}</p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #historicalCalls>
+    <div>
+        <mat-horizontal-stepper #stepper class="no-icon-steps buttons-labels">
+            <mat-step>
+                <ng-template matStepLabel>
+                    <p>Solicitante</p>
+                </ng-template>
+                <wnbo-record-calls [typeCall]="'solicitante'" [statusObj]="statusObj"></wnbo-record-calls>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>
+                    <p (click)="hideHistoricalButtons()">Referencias</p>
+                </ng-template>
+                <wnbo-record-calls [statusObj]="statusObj"></wnbo-record-calls>
+
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</ng-template>

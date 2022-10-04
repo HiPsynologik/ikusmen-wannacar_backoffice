@@ -1,0 +1,52 @@
+.dictum-header {
+    justify-content: space-between;
+}
+.dictum-menu {
+    button {
+        height: 48px;
+        padding: 0 14px;
+        cursor: pointer;
+        color: rgba(0,0,0,0.6);
+        font-size: 12px;
+        letter-spacing: 1.01px;
+        line-height: 16px;
+        text-align: center;
+        &.active {
+            color: #3F77B2;
+            border-bottom: 2px solid #3F77B2;
+        }
+    }
+}
+.applications-search-filter{
+    form{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
+    .search-element{
+        &:not(:first-child){
+            margin-left: 20px;
+        }
+        &.date-filter{
+            .mat-form-field{
+                max-width: 125px;
+            }
+        }
+        &.search-filter{
+            .mat-form-field{
+                min-width: 220px;
+            }
+        }
+        &.select-filter{
+            .mat-form-field{
+                max-width: 180px;
+            }
+        }
+    }
+    .material-icons{
+        color: rgba(0,0,0,0.54);
+        margin-right: 20px;
+        position: relative;
+        bottom: -8px;
+    }
+}

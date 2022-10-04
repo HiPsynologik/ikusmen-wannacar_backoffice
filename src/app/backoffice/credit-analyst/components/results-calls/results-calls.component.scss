@@ -1,0 +1,132 @@
+.validation-title {
+    text-transform: uppercase;
+    color: #0097CE;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 37px;
+}
+.phone-validation {
+    margin-right: 90px;
+}
+.question-list  {
+    margin-top: 25px;
+    margin-bottom: 50px;
+    p {
+        color: #5B6670;
+        font-size: 15px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        i {
+            font-size: 16px;
+            margin-right: 21px;
+            &.correct {
+                color: #2E980D;
+            }
+            &.error {
+            color: #D80000;
+            }
+        }
+    }
+
+}
+.open-questions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.question-item{
+    margin-bottom: 15px;
+    min-height: 79px;
+    .title {
+        color:#8898A7;
+        font-size: 14px;
+        letter-spacing: 0.44px;
+        text-transform: uppercase;
+    }
+    .data {
+        color: rgba(0,0,0,0.87);
+        letter-spacing: 0.14px;
+        font-size: 16px;
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.buttons-section {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    .back-btn {
+        border: none !important;
+        margin-right: 30px;
+    }
+}
+
+.reference-info {
+    margin-bottom: 30px;
+    .name {
+        color: #292E33;
+        font-size: 16px;
+        letter-spacing: -0.24px;
+        font-weight: 100;
+    }
+    .relationship {
+        color: #5B6670;
+        letter-spacing: -0.18px;
+        font-size: 12px;
+        font-weight: 100;
+        margin-bottom: 20px;
+        margin-top: 5px;
+    }
+    .question-list {
+        margin-bottom: 30px;
+    }
+}
+
+textarea{
+    text-align: left;
+    height: 100px;
+    width: 390px;
+    background-color: rgb(250, 250, 250);
+    resize: none !important;
+    padding: 5px 10px !important;
+    font-size: 14px;
+    color: rgba(0,0,0,0.5);
+    margin: 23px auto 30px auto;
+    border-radius: 4px;
+}
+.no-located {
+    margin-bottom: 20px;
+    p {
+        display: flex;
+        color: #5B6670;
+        font-weight: 100;
+        font-size: 15px;
+        letter-spacing: 1.27px;
+        line-height: 16px;
+        img {
+            margin-right: 17px;
+        }
+    }
+}
+
+.aditional-comment {
+    color:#5B6670;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.comment-section {
+    p {
+        color: #5B6670;
+        font-size: 15px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+}

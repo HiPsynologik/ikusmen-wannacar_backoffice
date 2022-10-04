@@ -1,0 +1,50 @@
+
+<!-- Contenedor y botón para sincronizar tablero -->
+<div class="sync-board">
+    <button mat-button class="sync-btn"><span class="material-icons">cached</span>Sincronizar. tablero</button>
+</div>
+<!-- Barra superior con elementos de la vista del tablero -->
+<div class="board-headers">
+    <!-- Barra de pestañas para navegación interna -->
+    <div class="board-navigation">
+        <div class="board-link active" matRipple>Estado del proceso</div>
+        <!--
+        <div class="board-link" matRipple (click)="goto()">Rastreo de actividad</div>
+        -->
+        <!--
+        <div class="board-link" matRipple>Rechazado/archivado</div>
+        -->
+    </div>
+    <!-- Barra de búsqueda y filtrado -->
+    <div class="board-search">
+        <form>
+            <div class="search-element date-filter">
+                <mat-form-field>
+                    <mat-label>Fechas</mat-label>
+                    <input matInput [matDatepicker]="applicationPicker" (click)="applicationPicker.open()" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="applicationPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #applicationPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="search-element search-filter">
+                <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <i matPrefix class="material-icons">search</i>
+                    <input type="tel" matInput>
+                </mat-form-field>
+            </div>
+            <div class="search-element select-filter">
+                <mat-form-field>
+                    <mat-label>Filtrar</mat-label>
+                    <i matPrefix class="material-icons">filter_list</i>
+                    <mat-select>
+                        <mat-option value="">Opción filtro 1</mat-option>
+                        <mat-option value="">Opción filtro 2</mat-option>
+                        <mat-option value="">Opción filtro 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+</div>
+<wnbo-board [name]="'board_credit_analyst'"></wnbo-board>

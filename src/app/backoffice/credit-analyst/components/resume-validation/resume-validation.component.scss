@@ -1,0 +1,96 @@
+#cr-status-header{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.cr-status-body {
+    justify-content: space-between;
+}
+.form-section {
+    max-width: 330px;
+    margin-right: 34px;
+}
+.form-field {
+    mat-label {
+        color: #94A2B1;
+        font-size: 14px;
+        letter-spacing: 0.44px;
+        line-height: 16px;
+    }
+}
+.flag-status-container {
+    margin-bottom: 20px;
+}
+.application-general-status {
+    text-align: right;
+}
+input {
+    text-align: left !important;
+}
+.just-field-data {
+    margin-top: 15px;
+    color: rgba(0,0,0,0.87);
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.14px;
+}
+mat-form-field, mat-slider {
+    width: 100%;
+}
+.two-columns {
+    .form-field {
+        max-width: 150px;
+    }
+
+}
+textarea {
+    background-color: #F6F6F5 !important;
+    resize: none !important;
+    height: 187px;
+    padding: 5px 10px !important;
+    max-width: 310px;
+    margin-top: 25px !important;
+    color: rgba(0,0,0,0.5);
+    font-size: 14px;background-color: #F6F6F5;
+    font-weight: normal;
+}
+.prospect-information{
+    max-width: 476px;
+}
+.link-container {
+    cursor: pointer;
+    position: relative;
+    height: 58px;
+    width: 303px;
+    padding: 11px;
+    border-radius: 3px;
+    background-color: #FAFAFA;
+    box-shadow: 0 2px 9px 2px rgba(27,72,120,0.1), 0 1px 1px -1px rgba(136,152,167,0.45);
+    margin-bottom: 30px;
+    .title {
+        color: #292E33;
+        font-size: 12px;
+    }
+    .data {
+        color:#5B6670;
+        font-size: 16px;
+        font-weight: 100;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    img {
+        position: absolute;
+        top: 23px;
+        right: 23px;
+    }
+}
+.buttons-section {
+    margin-top: 56px;
+    text-align: center;
+    .back-btn {
+        border: none !important;
+        margin-right: 30px;
+    }
+}

@@ -1,0 +1,151 @@
+<div class="document-main dp-flex-row">
+    <div class="document-section">
+        <div class="document-result dp-flex-row" *ngFor="let result of documentResult">
+            <div class="images-section {{documentStyle}}">
+                <wnbo-gallery *ngFor="let doc of result.documents" [isGallery]="false" [editable]="false" [photosArr]="[doc]" [customClass]="documentStyle" [imageLabel]="doc.label">
+                </wnbo-gallery>
+            </div>
+            <div class="results-section">
+                <p *ngFor="let item of result.results">
+                    <i
+                        class="material-icons {{(item.value == 'si')? 'correct' : 'error'}}">{{(item.value == 'si')? 'done' : 'close'}}</i>
+                    {{item.label}}
+                </p>
+                <div class="coments" *ngIf="result.additional_comment">
+                    {{result.additional_comment}}
+                </div>
+            </div>
+        </div>
+        <div class="results-section" *ngIf="documentResult[0]?.additional_comment_credit">
+            <div class="coments">
+                {{documentResult[0]?.additional_comment_credit}}
+            </div>
+        </div>
+        <div *ngIf="!isApproved">
+            <div class="action-section" *ngIf="documentResult[0] && ((documentResult[0].status != 'approved') && (documentResult[0].status != 'rejected') )">
+                <div class="item-comment">
+                    <textarea matInput [(ngModel)]="aditionalComment" placeholder="Agregar Comentario"></textarea>
+                </div>
+                <div class="buttons-section" >
+                    <button class="back-btn" mat-button (click)="openModalAction(3)">
+                        <img src="assets/images/reject-icon.svg" alt="">RECHAZAR</button>
+                    <button mat-button class="new-action-btn" (click)="openModalAction(2)">
+                        <i class="btn-icon material-icons">done</i> APROBAR
+                    </button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <div class="prospect-information">
+        <mat-accordion class="prospect-info-accordion" multi=true *ngIf="prospectInfo">
+            <!-- Elemento del acordeón -->
+            <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                (closed)="this.prospectPanelOpenState = false" [expanded]="true" *ngIf="type != 2">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>INFORMACIÓN PERSONAL</mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="accordion-split-container">
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Fecha de Nacimiento</p>
+                        <p class="entry-value">{{prospectInfo.birthdate | date}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item">
+                        <p class="entry-name">RFC</p>
+                        <p class="entry-value">{{prospectInfo.tax_id}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Teléfono</p>
+                        <p class="entry-value">{{prospectInfo.phone | formatNumber: '0'}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Nacionalidad</p>
+                        <p class="entry-value">{{prospectInfo.nacionality}}</p>
+                    </mat-card>
+                </div>
+            </mat-expansion-panel>
+            <!-- Elemento del acordeón -->
+            <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                (closed)="this.prospectPanelOpenState = false" [expanded]="true" *ngIf="type != 2">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Domicilio Actual</mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="accordion-split-container">
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Calle</p>
+                        <p class="entry-value">{{prospectInfo.street}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item double-entry">
+                        <div>
+                            <p class="entry-name">No. Int.</p>
+                            <p class="entry-value">{{prospectInfo.no_int}}</p>
+                        </div>
+                        <div>
+                            <p class="entry-name">No. Ext.</p>
+                            <p class="entry-value">{{prospectInfo.no_ext}}</p>
+                        </div>
+                    </mat-card>
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Código Postal</p>
+                        <p class="entry-value">{{prospectInfo.postal_code}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Delegación o Municipio</p>
+                        <p class="entry-value">{{prospectInfo.municipality}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Colonia</p>
+                        <p class="entry-value">{{prospectInfo.neighborhood}}</p>
+                    </mat-card>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true" *ngIf="type == 2">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Datos de la empresa</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Nombre de la empresa</p>
+                            <p class="entry-value">{{prospectInfo.company_name}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Puesto/Ocupación Actual</p>
+                            <p class="entry-value">{{prospectInfo.actual_position}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Teléfono</p>
+                            <p class="entry-value">{{prospectInfo.company_phone | formatNumber: '0'}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Extensión</p>
+                            <p class="entry-value">{{prospectInfo.company_extension}}</p>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                (closed)="this.prospectPanelOpenState = false" [expanded]="true" *ngIf="type == 2">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Datos Laborales</mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="accordion-split-container">
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Ingreso Mensual Neto</p>
+                        <p class="entry-value">{{prospectInfo.net_monthly_income | currency}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item">
+                        <p class="entry-name">Gasto Aproximado Mensual</p>
+                        <p class="entry-value">{{prospectInfo.approximate_monthly_egress | currency}}</p>
+                    </mat-card>
+                    <mat-card class="entry-item complete-entry">
+                        <div>
+                            <p class="entry-name">Antigüedad</p>
+                            <p class="entry-value">{{prospectInfo.company_years_antique}} años
+                                {{prospectInfo.company_months_antique}} meses</p>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

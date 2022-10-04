@@ -1,0 +1,57 @@
+<div class="wrapper">
+    <div class="header split-container">
+        <div class="section-info">
+            <div class="section-name">
+                <p>Administración de Usuarios</p>
+            </div>
+            <div class="action-name">
+                <p>Nueva Cuenta</p>
+            </div>
+        </div>
+        <div class="back-section">
+            <button class="back-btn" mat-button [routerLink]="['/admin/users']"><i class="btn-icon material-icons">keyboard_arrow_left</i>Regresar</button>
+        </div>
+    </div>
+    <!-- Formulario para crear nuevo usuario -->
+    <form class="user-role-form" [formGroup]="formCreateUser">
+        <div class="field-row">
+            <div class="form-field">
+                <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="admin_name" placeholder="Ingresar nombre" required>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field>
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput formControlName="admin_email" placeholder="Ingresar correo electrónico" required>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field>
+                    <mat-label>Cargo / Puesto</mat-label>
+                    <input matInput formControlName="admin_position" placeholder="Ingresar puesto" required>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field>
+                    <mat-label>Rol</mat-label>
+                    <mat-select required formControlName="admin_role_id">
+                        <mat-option value="">Seleccionar un rol</mat-option>
+                        <mat-option value="0" *ngFor="let role of rolesList" [value]="role.role_id">{{ role.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field>
+                    <mat-label>Empresa</mat-label>
+                    <input matInput formControlName="admin_enterprise" placeholder="Empresa" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="cancel-action-btn" [routerLink]="['/admin/users']" mat-button type="button">Cancelar</button>
+            <button class="save-action-btn" mat-button (click)="saveUser()" >Guardar</button>
+        </div>
+    </form>
+</div>

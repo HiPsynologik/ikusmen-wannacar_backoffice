@@ -1,0 +1,114 @@
+.results-main {
+    margin-top: 25px;
+    justify-content: space-between;
+}
+.no-images{
+    box-sizing: border-box;
+    height: 100px;
+    width: 140px;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    background-color: #F2F6F8;
+    box-shadow: 0 1px 1px -1px rgba(136,152,167,0.45), 0 2px 9px 2px rgba(27,72,120,0.1);
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 14px;
+    color: #5B6670;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.gallery-section {
+    min-width: 250px;
+}
+.gallery-title {
+    color: #292E33;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 29px;
+}
+.front-section {
+    margin-bottom: 20px;
+}
+.images-section {
+    img {
+        box-sizing: border-box;
+        height: 100px;
+        width: 140px;
+        border: 1px solid #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 1px 1px -1px rgba(136,152,167,0.45), 0 2px 9px 2px rgba(27,72,120,0.1);
+        margin-left: -80px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
+.gallery-button {
+    margin-top: 20px;
+    button {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
+    span {
+        font-size: 14px;
+        color:#2F343B;
+        letter-spacing: 1.18px;
+    }
+}
+
+/////
+.comment-section {
+    p {
+        color: #5B6670;
+        font-size: 15px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+}
+.validation-list {
+    margin-top: 25px;
+    margin-bottom: 50px;
+    p {
+        color: #5B6670;
+        font-size: 15px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        i {
+            color: #D80000;
+            font-size: 16px;
+            margin-right: 21px;
+        }
+    }
+
+}
+textarea{
+    text-align: left;
+    height: 100px;
+    width: 390px;
+    background-color: rgb(250, 250, 250);
+    resize: none !important;
+    padding: 5px 10px !important;
+    font-size: 14px;
+    color: rgba(0,0,0,0.5);
+    margin: 23px auto 30px auto;
+    border-radius: 4px;
+}
+.buttons-section {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    .back-btn {
+        border: none !important;
+    }
+}
+.prospect-information {
+    width: 476px;
+}

@@ -1,0 +1,374 @@
+<div class="backoffice-wrapper" *ngIf="prospectInfo">
+    <div id="cr-status-header">
+        <div class="completion-percentage">
+            <div class="split-container">
+                <div class="percentage-number">37%</div>
+                <div class="prospect-info">
+                    <p class="prospect-name">{{prospectInfo.name}} {{prospectInfo.lastname}}
+                        {{prospectInfo.second_lastname}}</p>
+                    <p class="prospect-email">{{prospectInfo.email}}</p>
+                </div>
+            </div>
+            <div class="line-percentage">
+                <mat-progress-bar class="progress-line" mode="determinate" [value]="userProgressPercent">
+                </mat-progress-bar>
+            </div>
+        </div>
+        <div class="application-general-status">
+            <div class="flag-status-container {{cardStatus.class}}">
+                <span class="flag-status">{{cardStatus.label}}</span>
+            </div>
+            <div class="return-back-btn">
+                <button mat-button class="new-action-btn" (click)="downloadAllDocuments()">
+                    <img src="assets/images/icon-download.svg" alt=""> DESCARGAR ARCHIVOS
+                </button>
+                <button class="back-btn" mat-button (click)="askBackToBoard()"><i
+                        class="btn-icon material-icons">keyboard_arrow_left</i>Regresar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cr-status-body">
+        <div class="document-section">
+            <div class="document-content" (click)="downloadDocument(validDocuments.last_salary_slips)">
+                <div class="document-progress">
+                    <img src="assets/images/icon-download-grey.svg" alt="" *ngIf="validDocuments.last_salary_slips.showProgress == false">
+                    <circle-progress *ngIf="validDocuments.last_salary_slips.showProgress == true"
+                        [percent]="100" [outerStrokeColor]="'#009DD3'" [animation]="true" [animationDuration]="animationDuration">
+                    </circle-progress>
+                </div>
+                <div>
+                    <p class="document-name">1. Último Comprobante</p>
+                    <p class="{{(validDocuments.last_salary_slips.isDownloaded) ? 'download-again' : 'download'}}">
+                        {{(validDocuments.last_salary_slips.isDownloaded) ? 'DESCARGAR NUEVAMENTE' : 'DESCARGAR'}}</p>
+                </div>
+                <!-- <i class="material-icons">close</i> -->
+
+            </div>
+            <div class="document-content" (click)="downloadDocument(validDocuments.antepenultimate_salary_slips)">
+                <div class="document-progress">
+                    <img src="assets/images/icon-download-grey.svg" alt=""
+                        *ngIf="validDocuments.antepenultimate_salary_slips.showProgress == false">
+                    <circle-progress *ngIf="validDocuments.antepenultimate_salary_slips.showProgress == true"
+                        [percent]="100" [outerStrokeColor]="'#009DD3'" [animation]="true" [animationDuration]="animationDuration">
+                    </circle-progress>
+                </div>
+                <div>
+                    <p class="document-name">2. Comprobante Anterior</p>
+                    <p
+                        class="{{(validDocuments.antepenultimate_salary_slips.isDownloaded) ? 'download-again' : 'download'}}">
+                        {{(validDocuments.antepenultimate_salary_slips.isDownloaded) ? 'DESCARGAR NUEVAMENTE' : 'DESCARGAR'}}
+                    </p>
+                </div>
+                <!-- <i class="material-icons">close</i> -->
+            </div>
+            <div class="document-content" (click)="downloadDocument(validDocuments.previus_salary_slips)">
+                <div class="document-progress">
+                    <img src="assets/images/icon-download-grey.svg" alt=""  *ngIf="validDocuments.previus_salary_slips.showProgress == false">
+                    <circle-progress *ngIf="validDocuments.previus_salary_slips.showProgress == true"
+                        [percent]="100" [outerStrokeColor]="'#009DD3'" [animation]="true" [animationDuration]="animationDuration">
+                    </circle-progress>
+                </div>
+                <div>
+                    <p class="document-name">3. Comprobante Previo</p>
+                    <p class="{{(validDocuments.previus_salary_slips.isDownloaded) ? 'download-again' : 'download'}}">
+                        {{(validDocuments.previus_salary_slips.isDownloaded) ? 'DESCARGAR NUEVAMENTE' : 'DESCARGAR'}}
+                    </p>
+                </div>
+                <!-- <i class="material-icons">close</i> -->
+            </div>
+            <div class="document-content">
+                <div class="document-progress">
+                    <img src="assets/images/icon-download-grey.svg" alt="">
+                </div>
+                <div>
+                    <p class="document-name">4. Círculo de descarga</p>
+                    <p class="{{(validDocuments.credit?.isDownloaded ==  true) ? 'download-again' : 'download'}}">
+                        {{(validDocuments.credit?.isDownloaded) ? 'DESCARGAR NUEVAMENTE' : 'DESCARGAR'}}</p>
+                </div>
+                <!-- <i class="material-icons">close</i> -->
+
+            </div>
+
+        </div>
+        <div class="form-section">
+            <p class="request-id">Solicitud <span>{{requestId}}</span> </p>
+            <form [formGroup]="dataForm">
+                <div class="two-columns">
+                    <div class="form-fiels">
+                        <mat-form-field>
+                            <mat-label>PERIODICIDAD</mat-label>
+                            <mat-select formControlName="period" (selectionChange)="calculateMonthlyIncome()">
+                                <mat-option [value]="period.value" *ngFor="let period of periodicityOptions">
+                                    {{period.label | titlecase}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <mat-form-field>
+                            <mat-label>INGRESO 2</mat-label>
+                            <input class="" matInput currencyMask [options]="{ precision:0 }"
+                                formControlName="incomeTwo" (keyup)="keyDownMonthlyIncome.next($event)">
+                            <mat-error>Ingresa una cantidad válida</mat-error>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="field-data">
+                        <label>INGRESO MENSUAL</label>
+                        <p>{{dataForm.controls.monthlhyIncome.value | currency}}</p>
+                    </div>
+                    <div class="form-field">
+                        <mat-form-field>
+                            <mat-label>INGRESO 1</mat-label>
+                            <input class="" matInput currencyMask [options]="{ precision:0 }"
+                                formControlName="incomeOne" (keyup)="keyDownMonthlyIncome.next($event)">
+                            <mat-error>Ingresa una cantidad válida</mat-error>
+
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-field">
+                        <mat-form-field>
+                            <mat-label>INGRESO 3</mat-label>
+                            <input class="" matInput currencyMask [options]="{ precision:0 }"
+                                formControlName="incomeThree" (keyup)="keyDownMonthlyIncome.next($event)">
+                            <mat-error>Ingresa una cantidad válida</mat-error>
+
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-field">
+                        <mat-form-field>
+                            <mat-label>EGRESOS</mat-label>
+                            <input class="" matInput currencyMask [options]="{ precision:0 }" formControlName="egress"
+                                (keyup)="keyDownMonthlyIncome.next($event)">
+                            <mat-error>Ingresa una cantidad válida</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="field-data payment-capacity">
+                    <label>CAPACIDAD DE PAGO MENSUAL</label>
+                    <p>{{dataForm.controls.paymentCapacity.value | currency}}</p>
+                </div>
+                <div class="form-field">
+                    <mat-form-field>
+                        <mat-label>AJUSTAR MONTO DEL PRÉSTAMO</mat-label>
+                        <input class="" matInput currencyMask [options]="{ precision:0 }" formControlName="creditAmount"
+                            (blur)="validateAmount()">
+                        <mat-error>Ingresa una cantidad válida entre {{ sliderOpts.min | currency}} y
+                            {{sliderOpts.max | currency}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="slide" *ngIf="sliderOpts.max && !isResumeView">
+                    <mat-slider [min]="sliderOpts.min" [max]="sliderOpts.max" [step]="sliderOpts.step"
+                        [value]="sliderAmount" (change)="keyDownreditAmount.next($event)"></mat-slider>
+                </div>
+                <div class="two-columns">
+                    <div class="form-fiels">
+                        <mat-form-field>
+                            <mat-label>TASA</mat-label>
+                            <mat-select formControlName="interestRate" (selectionChange)="calculatePayment()">
+                                <mat-option [value]="interest" *ngFor="let interest of interestOptions">{{interest}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-fiels">
+                        <mat-form-field>
+                            <mat-label>PLAZO</mat-label>
+                            <mat-select formControlName="paymentDeadline" (selectionChange)="calculatePayment()">
+                                <mat-option [value]="deadLine" *ngFor="let deadLine of paymentDeadLineOptions">
+                                    {{deadLine}} meses</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="conditions-section">
+                    <div
+                        class="{{(dataForm.controls.monthlhyIncome.value != 0) ? ((dataForm.controls.monthlhyIncome.value != prospectInfo.net_monthly_income) ? 'negative': 'positive') : ''}}">
+                        <i
+                            class="material-icons">{{(dataForm.controls.monthlhyIncome.value != 0) ? ((dataForm.controls.monthlhyIncome.value != prospectInfo.net_monthly_income) ? 'close': 'done') : ''}}</i>
+                        <p>Coinciden ingresos</p>
+                    </div>
+                    <div
+                        class="{{(dataForm.controls.egress.value == prospectInfo.approximate_monthly_egress) ? 'positive': 'negative'}}">
+                        <i
+                            class="material-icons">{{(dataForm.controls.egress.value == prospectInfo.approximate_monthly_egress) ? 'done': 'close'}}</i>
+                        <p>Coinciden egresos</p>
+                    </div>
+                    <div class="{{(creditData.credit_amount == prospectInfo.credit_amount) ? 'positive': 'negative'}}">
+                        <i
+                            class="material-icons">{{(creditData.credit_amount == prospectInfo.credit_amount) ? 'done': 'close'}}</i>
+                        <p>Se conservó monto inicial</p>
+                    </div>
+                    <div
+                        class="{{((this.dataForm.controls.interestRate.value == interestOptions[0])&&(this.dataForm.controls.paymentDeadline.value == creditData.credit_period_payment)) ? 'positive':'negative'}}">
+                        <i
+                            class="material-icons">{{((this.dataForm.controls.interestRate.value == interestOptions[0])&&(this.dataForm.controls.paymentDeadline.value == creditData.credit_period_payment)) ? 'done':'close'}}</i>
+                        <p>Ajuste en crédito</p>
+                    </div>
+                </div>
+                <div class="validation-item textarea-field">
+                    <textarea matInput formControlName="comments"
+                        placeholder="Agregar comentarios adicionales"></textarea>
+                </div>
+                <div class="buttons-section" *ngIf="!isResumeView">
+                    <button class="back-btn" mat-button>
+                        <img src="assets/images/reject-icon.svg" alt="">RECHAZAR</button>
+                    <button mat-button class="new-action-btn" (click)="approveRequest()">
+                        <i class="btn-icon material-icons">done</i> APROBAR
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="prospect-information-container">
+            <div class="prospect-information">
+                <mat-accordion class="prospect-info-accordion" multi=true>
+                    <!-- Elemento del acordeón -->
+                    <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                        (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Datos del crédito</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="accordion-split-container">
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Monto Solicitado</p>
+                                <p class="entry-value">{{creditData.credit_amount | currency}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Pago mensual</p>
+                                <p class="entry-value">{{creditData.credit_monthly_payment | currency}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Enganche</p>
+                                <p class="entry-value">{{creditData.credit_down_payment | currency}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Plazo</p>
+                                <p class="entry-value">{{creditData.credit_period_payment}} meses</p>
+                            </mat-card>
+                        </div>
+                    </mat-expansion-panel>
+                    <!-- Elemento del acordeón -->
+                    <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                        (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Datos Laborales</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="accordion-split-container">
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Ingreso Mensual Neto</p>
+                                <p class="entry-value">{{prospectInfo.net_monthly_income | currency}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Gasto Aproximado Mensual</p>
+                                <p class="entry-value">{{prospectInfo.approximate_monthly_egress | currency}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item complete-entry">
+                                <div>
+                                    <p class="entry-name">Antigüedad</p>
+                                    <p class="entry-value">{{prospectInfo.company_years_antique}} años
+                                        {{prospectInfo.company_months_antique}} meses</p>
+                                </div>
+                            </mat-card>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                        (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Datos del auto</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="accordion-split-container">
+                            <mat-card class="entry-item complete-entry">
+                                <div>
+                                    <p class="entry-name">Costo del auto</p>
+                                    <p class="entry-value">{{prospectInfo.credit_car_cost | currency}}</p>
+                                </div>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Año</p>
+                                <p class="entry-value">{{prospectInfo.car_model_year }}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Marca</p>
+                                <p class="entry-value">{{prospectInfo.car_make_name}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Modelo</p>
+                                <p class="entry-value">{{prospectInfo.car_model_name }}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Versión</p>
+                                <p class="entry-value">{{prospectInfo.car_version }}</p>
+                            </mat-card>
+
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                        (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Información Personal</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="accordion-split-container">
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Fecha de Nacimiento</p>
+                                <p class="entry-value">{{prospectInfo.birthdate | date}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">RFC</p>
+                                <p class="entry-value">{{prospectInfo.tax_id}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Teléfono</p>
+                                <p class="entry-value">{{prospectInfo.phone | formatNumber: '0'}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Nacionalidad</p>
+                                <p class="entry-value">{{prospectInfo.nacionality}}</p>
+                            </mat-card>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                        (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Historial Crediticio</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="accordion-split-container">
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Deuda de corto plazo</p>
+                                <p class="entry-value">{{35000 | currency}}</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Score FICO</p>
+                                <p class="entry-value">800</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Número de créditos activos</p>
+                                <p class="entry-value">1</p>
+                            </mat-card>
+                            <mat-card class="entry-item">
+                                <p class="entry-name">Número de atrasos</p>
+                                <p class="entry-value">48 meses</p>
+                            </mat-card>
+                            <mat-card class="entry-item complete-entry">
+                                <div>
+                                    <p class="entry-name">Deuda Total</p>
+                                    <p class="entry-value">{{35000 | currency}}</p>
+                                </div>
+                            </mat-card>
+                            <mat-card class="entry-item complete-entry">
+                                <div>
+                                    <p class="entry-name">Razones de círculo</p>
+                                    <p class="entry-value">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
+                                        illum sit voluptatibus sint aperiam ullam facilis, modi tempore unde
+                                        dignissimos? Repudiandae iure, ratione repellat ad possimus ducimus perspiciatis
+                                        commodi necessitatibus.</p>
+                                </div>
+                            </mat-card>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</div>

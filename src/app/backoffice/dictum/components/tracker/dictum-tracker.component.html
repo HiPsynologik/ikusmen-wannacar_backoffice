@@ -1,0 +1,53 @@
+<div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="prospectData">
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.request_id}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <!-- email Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Correo Electrónico </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="requests">
+            <th mat-header-cell *matHeaderCellDef> <mat-icon class="table-icon" svgIcon="ico-prospects" matTooltip="Solicitudes"></mat-icon> </th>
+            <td mat-cell *matCellDef="let element"> <span class="step-view-status" [ngClass]="'status-' + element.requests" matTooltip="Solicitudes"></span> </td>
+        </ng-container>
+        <!-- Columna de datos personales -->
+        <ng-container matColumnDef="documentary_validation">
+            <th mat-header-cell *matHeaderCellDef> <mat-icon class="table-icon" svgIcon="ico-documentation" matTooltip="Validación documental"></mat-icon> </th>
+            <td mat-cell *matCellDef="let element"> <span class="step-view-status" [ngClass]="'status-' + element.documentary_validation" matTooltip="Validación documental"></span> </td>
+        </ng-container>
+        <!-- Columna de domicilio -->
+        <ng-container matColumnDef="credit_analyst">
+            <th mat-header-cell *matHeaderCellDef> <mat-icon class="table-icon" svgIcon="ico-analyst" matTooltip="Analista crediticio"></mat-icon> </th>
+            <td mat-cell *matCellDef="let element"> <span class="step-view-status" [ngClass]="'status-' + element.credit_analyst" matTooltip="Analista crediticio"></span> </td>
+        </ng-container>
+        <!-- Columna de Buró de crédito -->
+        <ng-container matColumnDef="investigator">
+            <th mat-header-cell *matHeaderCellDef> <mat-icon class="table-icon" svgIcon="ico-investigation" matTooltip="Investigación"></mat-icon> </th>
+            <td mat-cell *matCellDef="let element"> <span class="step-view-status" [ngClass]="'status-' + element.investigator" matTooltip="Investigación"></span> </td>
+        </ng-container>
+        <!-- Columna de Información laboral -->
+        <ng-container matColumnDef="calls">
+            <th mat-header-cell *matHeaderCellDef> <mat-icon class="table-icon" svgIcon="ico-references" matTooltip="Llamadas"></mat-icon> </th>
+            <td mat-cell *matCellDef="let element"> <span class="step-view-status" [ngClass]="'status-' + element.calls" matTooltip="Llamadas"></span> </td>
+        </ng-container>
+        <!-- Columna de Referencias -->
+        <ng-container matColumnDef="credit_approved">
+            <th mat-header-cell *matHeaderCellDef> <mat-icon class="table-icon" svgIcon="ico-credit" matTooltip="Crédito aprobado"></mat-icon> </th>
+            <td mat-cell *matCellDef="let element"> <span class="step-view-status" [ngClass]="'status-' + element.credit_approved" matTooltip="Crédito aprobado"></span> </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!-- Paginador -->
+    <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

@@ -1,0 +1,7 @@
+<wnbo-backoffice-sidenav [iconStatus]="sideNavOpen"></wnbo-backoffice-sidenav>
+<div id="backoffice-content" [ngClass]="sideNavOpen ? 'open' : 'closed'">
+    <wnbo-backoffice-navbar (sideBarStat)="menuState($event)"></wnbo-backoffice-navbar>
+    <div id="backoffice-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+</div>

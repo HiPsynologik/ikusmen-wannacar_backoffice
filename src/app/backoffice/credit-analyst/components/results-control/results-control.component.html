@@ -1,0 +1,74 @@
+<div class="backoffice-wrapper">
+    <div id="cr-status-header">
+        <div class="completion-percentage" *ngIf="prospectInfo">
+            <div class="split-container">
+                <div class="percentage-number">37%</div>
+                <div class="prospect-info">
+                    <p class="prospect-name">{{prospectInfo.name}} {{prospectInfo.lastname}}
+                        {{prospectInfo.second_lastname}}</p>
+                    <p class="prospect-email">{{prospectInfo.email}}</p>
+                </div>
+            </div>
+            <div class="line-percentage">
+                <mat-progress-bar class="progress-line" mode="determinate" [value]="userProgressPercent">
+                </mat-progress-bar>
+            </div>
+        </div>
+        <div class="application-general-status">
+            <div class="flag-status-container {{cardStatus.class}}">
+                <span class="flag-status">{{cardStatus.label}}</span>
+            </div>
+            <div class="return-back-btn" *ngIf="!areHistoricalButtonsShown; else backFromCalls">
+                <button class="back-btn" mat-button (click)="backToBoard()">
+                    <i class="btn-icon material-icons">keyboard_arrow_left</i>
+                    Regresar
+                </button>
+            </div>
+            <ng-template #backFromCalls>
+                <div class="return-back-btn">
+                    <button class="back-btn" mat-button (click)="showHistorical()" *ngIf="!isHistoricalShown">
+                        <mat-icon svgIcon="history-icon"></mat-icon>
+                        Historial
+                    </button>
+                    <button class="back-btn" mat-button (click)="hideHistorical()">
+                        <i class="btn-icon material-icons">keyboard_arrow_left</i>
+                        Regresar
+                    </button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="cr-status-body">
+        <mat-horizontal-stepper #stepper class="no-icon-steps buttons-labels">
+            <mat-step *ngIf="!sectionsHidden[0]">
+                <ng-template matStepLabel >
+                    <p (click)="hideHistoricalButtons()">Domicilio Actual</p>
+                </ng-template>
+                <wnbo-results-home [isResumeView]="isResumeView" [requestId]="requestId" [failedCat]="addressFailCat"
+                    [prospectInfo]="prospectInfo" (approveEmitter)="sectionApproved($event)" (hideEmitter)="hideSection($event)"></wnbo-results-home>
+            </mat-step>
+            <mat-step *ngIf="!sectionsHidden[1]">
+                <ng-template matStepLabel>
+                    <p  (click)="hideHistoricalButtons()">Domicilio laboral</p>
+                    </ng-template>
+                <wnbo-results-work [isResumeView]="isResumeView" [requestId]="requestId" [failedCat]="workFailCat"
+                    [prospectInfo]="prospectInfo" (approveEmitter)="sectionApproved($event)" (hideEmitter)="hideSection($event)"></wnbo-results-work>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>
+                    <p  (click)="areHistoricalButtonsShown = true">Llamadas</p>
+                    </ng-template>
+                <wnbo-results-calls *ngIf="referencesData" [isResumeView]="isResumeView" [requestId]="requestId" [showHistory]="isHistoricalShown"
+                    [referencesData]="referencesData" (approveEmitter)="sectionApproved($event)" (hideEmitter)="hideSection($event)"></wnbo-results-calls>
+            </mat-step>
+            <mat-step *ngIf="!sectionsHidden[3]">
+                <ng-template matStepLabel> 
+                    <p (click)="hideHistoricalButtons()">Revisión de documentación</p>
+                    </ng-template>
+                <wnbo-results-documents [isResumeView]="isResumeView" [requestId]="requestId"
+                    [prospectInfo]="prospectInfo" (approveEmitter)="sectionApproved($event)" (hideEmitter)="hideSection($event)"></wnbo-results-documents>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</div>

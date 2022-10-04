@@ -1,0 +1,24 @@
+.backoffice-wrapper {
+    #cr-status-header{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    .completion-percentage {
+        min-width: 373px;
+    }
+    .flag-status-container {
+        margin-bottom: 20px;
+    }
+    .application-general-status {
+        text-align: right;
+    }
+    .return-back-btn {
+        display: flex;
+        button {
+            margin-left: 30px;
+        }
+    }  
+}

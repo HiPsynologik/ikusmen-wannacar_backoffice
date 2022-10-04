@@ -1,0 +1,40 @@
+<div>
+    <div class="dictum-header dp-flex-row">
+        <div class="dictum-menu">
+            <button *ngFor="let sect of sections; let i = index" (click)="selectSection(i)" [ngClass]="{'active': currentSection == i}">{{sect.label | uppercase}}</button>
+        </div>
+        <div class="applications-search-filter">
+            <form>
+                <div class="search-element date-filter">
+                    <mat-form-field>
+                        <mat-label>Fechas</mat-label>
+                        <input matInput [matDatepicker]="applicationPicker" (click)="applicationPicker.open()" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="applicationPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #applicationPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="search-element search-filter">
+                    <mat-form-field>
+                        <mat-label>Buscar</mat-label>
+                        <i matPrefix class="material-icons">search</i>
+                        <input type="tel" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="search-element select-filter">
+                    <mat-form-field>
+                        <mat-label>Filtrar</mat-label>
+                        <i matPrefix class="material-icons">filter_list</i>
+                        <mat-select>
+                            <mat-option value="">Opción filtro 1</mat-option>
+                            <mat-option value="">Opción filtro 2</mat-option>
+                            <mat-option value="">Opción filtro 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="sections">
+        <wnbo-dictum-tracker *ngIf="currentSection ==  1"></wnbo-dictum-tracker>
+    </div>
+</div>

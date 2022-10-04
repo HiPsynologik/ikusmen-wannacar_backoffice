@@ -1,0 +1,71 @@
+.prospect-information {
+    max-width: 476px;
+}
+.document-main {
+    justify-content: space-between;
+}
+.results-section{
+    margin-top: 25px;
+    margin-bottom: 50px;
+    width: 390px;
+    margin-left: 83px;
+    p {
+        color: #5B6670;
+        font-size: 15px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        i {
+            font-size: 16px;
+            margin-right: 21px;
+            &.correct {
+                color: #2E980D;
+            }
+            &.error {
+            color: #D80000;
+            }
+        }
+    }
+
+}
+.income-doc {
+    display: flex;
+    wnbo-gallery {
+        margin-right: 15px;
+    }
+}
+.coments {
+    color: #5B6670;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 18px;
+  font-weight: 100;
+}
+textarea{
+    text-align: left;
+    height: 100px;
+    width: 370px;
+    background-color: rgb(250, 250, 250);
+    resize: none !important;
+    padding: 5px 10px !important;
+    font-size: 14px;
+    color: rgba(0,0,0,0.5);
+    margin: 23px auto 30px auto;
+    border-radius: 4px;
+}
+
+.buttons-section {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    .back-btn {
+        border: none !important;
+        margin-right: 30px;
+    }
+}
+
+.action-section {
+    width: 390px;
+    margin-left: auto;
+}

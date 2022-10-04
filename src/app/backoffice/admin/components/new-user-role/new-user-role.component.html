@@ -1,0 +1,35 @@
+<div class="wrapper">
+    <div class="header split-container">
+        <div class="section-info">
+            <div class="section-name">
+                <p>Administración de Roles</p>
+            </div>
+            <div class="action-name">
+                <p>Nuevo Rol</p>
+            </div>
+        </div>
+        <div class="back-section">
+            <button class="back-btn" mat-button [routerLink]="['/admin/roles']"><i class="btn-icon material-icons">keyboard_arrow_left</i>Regresar</button>
+        </div>
+    </div>
+    <!-- Formulario para crear nuevo rol -->
+    <form class="user-role-form" [formGroup]="formPermision">
+        <div class="form-field">
+            <mat-form-field>
+                <mat-label>Rol</mat-label>
+                <input matInput formControlName="nameRol" placeholder="Ingresar nombre de rol" required>
+                <mat-error align="end" >Campo Requerido</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-field checkbox" *ngFor="let item of permissionList">
+            <mat-checkbox (change)="changeValue($event, item)">{{ item.name }}</mat-checkbox>
+        </div>
+        <mat-error align="end" *ngIf="permisionSelect">Debe Seleccionar al menos un permiso</mat-error>
+
+        <div class="form-actions">
+            <button class="cancel-action-btn" mat-button (click)="reset()" type="button">Cancelar</button>
+            <button class="save-action-btn" mat-button (click)="savePermision()">Guardar</button>
+        </div>
+    </form>
+</div>

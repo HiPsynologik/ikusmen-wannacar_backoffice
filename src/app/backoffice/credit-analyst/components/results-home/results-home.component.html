@@ -1,0 +1,196 @@
+<div class="results-main dp-flex-row">
+    <div class="gallery-section">
+        <div class="front-section">
+            <p class="gallery-title">FACHADA</p>
+            <div *ngIf="frontImages.length == 0; else imagesFront" class="no-images">
+                <img src="assets/images/photo.svg" alt="">
+                <p>Sin fotos</p>
+            </div>
+            <ng-template #imagesFront>
+                <div>
+                    <div class="images-section">
+                        <img *ngFor="let item of frontImages | slice:0:4" src="{{item.file}}" alt="">
+                    </div>
+                    <div class="gallery-button">
+                        <button (click)="showGallery(frontImages)">
+                            <img src="assets/images/photo.svg" alt="">
+                            <span>VER GALERÍA</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div class="interior-section">
+            <p class="gallery-title">INTERIOR</p>
+            <div *ngIf="interiorImages.length == 0; else imagesInterior" class="no-images">
+                <img src="assets/images/photo.svg" alt="">
+                <p>Sin fotos</p>
+            </div>
+            <ng-template #imagesInterior>
+                <div>
+                    <div class="images-section">
+                        <img *ngFor="let item of interiorImages | slice:0:4" src="{{item.file}}" alt="">
+                    </div>
+                    <div class="gallery-button">
+                        <button (click)="showGallery(interiorImages)">
+                            <img src="assets/images/photo.svg" alt="">
+                            <span>VER GALERÍA</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="validation-section">
+        <p class="request-id">Solicitud <span>{{requestId}}</span> </p>
+        <div class="validation-list" *ngIf="validationList.length != 0">
+            <p *ngFor="let item of validationList">
+                <i class="material-icons">close</i>
+                {{failedCat[item]}}
+            </p>
+            <p>{{otherReason}}</p>
+        </div>
+        <div class="comment-section">
+            <textarea *ngIf="!isSaved; else commentReview" matInput [(ngModel)]="aditionalComment" placeholder="Agregar Comentario"></textarea>
+            <ng-template #commentReview>
+                <p>{{visitData.additional_comment_credit}}</p>
+            </ng-template>
+        </div>
+        <div class="buttons-section" *ngIf="!isSaved">
+            <button class="back-btn" mat-button (click)="openModalAction(3)">
+                <img src="assets/images/reject-icon.svg" alt="">RECHAZAR</button>
+            <button mat-button class="new-action-btn" (click)="openModalAction(2)">
+                <i class="btn-icon material-icons">done</i> APROBAR
+            </button>
+        </div>
+    </div>
+    <div class="investigation-section">
+        <div class="prospect-information">
+            <mat-accordion class="prospect-info-accordion" multi=true *ngIf="prospectInfo">
+                <!-- Elemento del acordeón -->
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Datos de la visita</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item">
+                            <p class="entry-name">ID Cliente</p>
+                            <p class="entry-value">{{requestId}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Nombre</p>
+                            <p class="entry-value">{{prospectInfo.name + ' ' +prospectInfo.lastname}} </p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Calle</p>
+                            <p class="entry-value">{{prospectInfo.street}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item double-entry">
+                            <div>
+                                <p class="entry-name">No. Int.</p>
+                                <p class="entry-value">{{prospectInfo.no_int}}</p>
+                            </div>
+                            <div>
+                                <p class="entry-name">No. Ext.</p>
+                                <p class="entry-value">{{prospectInfo.no_ext}}</p>
+                            </div>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Código Postal</p>
+                            <p class="entry-value">{{prospectInfo.postal_code}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Ciudad</p>
+                            <p class="entry-value">{{prospectInfo.state}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item complete-entry">
+                            <div>
+                                <p class="entry-name">Entre Calles</p>
+                                <p class="entry-value">{{visitData.home_between_streets}}</p>
+                            </div>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+                <!-- Elemento del acordeón -->
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Información de domicilio</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Tipo de vivienda</p>
+                            <p class="entry-value">{{visitData.home_housing_type}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Material</p>
+                            <p class="entry-value">{{visitData.home_material}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Color puerta</p>
+                            <p class="entry-value">{{visitData.home_door_color}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Número de Habitaciones</p>
+                            <p class="entry-value">{{visitData.home_number_of_habitants}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Número de Pisos</p>
+                            <p class="entry-value">{{visitData.home_number_of_floors}}</p>
+                        </mat-card>
+
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Años de Residencia</p>
+                            <p class="entry-value">{{visitData.home_years_of_residence}} años</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Valor de la Vivienda</p>
+                            <p class="entry-value">{{visitData.home_value | currency}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Vivienda</p>
+                            <p class="entry-value">{{visitData.home_living_place}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Mensualidad</p>
+                            <p class="entry-value">{{visitData.home_monthly_payment | currency}}</p>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Referencia Vecinal</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item complete-entry">
+                            <div>
+                                <p class="entry-name">Nombre</p>
+                                <p class="entry-value">{{visitData.home_neighborhood_reference_name}}</p>
+                            </div>
+                        </mat-card>
+                        <mat-card class="entry-item complete-entry">
+                            <div>
+                                <p class="entry-name">Sabes quien es el dueño de la vivienda</p>
+                                <p class="entry-value">{{visitData.home_meet_the_owner}}</p>
+                            </div>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Horario en casa</p>
+                            <p class="entry-value">{{visitData.home_time_at_home}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Persona Responsable</p>
+                            <p class="entry-value">{{visitData.home_person_in_charge}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Puede pagar crédito</p>
+                            <p class="entry-value">{{visitData.home_can_pay_credit}}</p>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>

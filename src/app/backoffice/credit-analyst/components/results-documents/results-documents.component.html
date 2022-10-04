@@ -1,0 +1,110 @@
+<div>
+    <p class="request-id">Solicitud <span>{{requestId}}</span> </p>
+    <div>
+        <mat-accordion class="cr-accordion">
+            <!-- Identificación oficial -->
+            <mat-expansion-panel [expanded]="currentStep == 0" (opened)="currentStep = 0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Identificación oficial</mat-panel-title>
+                    <mat-panel-description>
+                        <!-- Banderas de estado de revisión de documentos -->
+                        <div class="doc-val-status-flag" [ngSwitch]="sectionStatus.id">
+                            <span class="flag approved" *ngSwitchCase="documentSatus.approved">
+                                <span class="flag-icon">
+                                    <i class="material-icons rejected">done</i>
+                                </span>
+                                <span class="flag-text">Aprobado</span>
+                            </span>
+                            <span class="flag rejected" *ngSwitchCase="documentSatus.rejected">
+                                <span class="flag-icon">
+                                    <i class="material-icons rejected">close</i>
+                                </span>
+                                <span class="flag-text">Rechazado</span>
+                            </span>
+                        </div>
+                        <mat-icon *ngIf="!this.panelOpenState" svgIcon="expand-icon" aria-hidden="true" color="white">
+                        </mat-icon>
+                        <mat-icon *ngIf="this.panelOpenState" svgIcon="collapse-icon" aria-hidden="true" color="white">
+                        </mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <!-- Contenido del colapsable -->
+                <div *ngIf="idResults.length != 0">
+                    <wnbo-document-validation (validateEmitter)="nextDocument($event)" [documentStyle]="'id-doc'" [documentResult]="idResults"
+                        [prospectInfo]="prospectInfo" [type]="documentType.id" [requestId]="requestId">
+                    </wnbo-document-validation>
+                </div>
+
+                <!-- Contenido del colapsable -->
+            </mat-expansion-panel>
+            <!-- Comprobante de domicilio -->
+            <mat-expansion-panel [expanded]="currentStep == 1" (opened)="currentStep = 1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Comprobante de domicilio</mat-panel-title>
+                    <mat-panel-description>
+                        <!-- Banderas de estado de revisión de documentos -->
+                        <div class="doc-val-status-flag" [ngSwitch]="sectionStatus.address">
+                            <span class="flag approved" *ngSwitchCase="documentSatus.approved">
+                                <span class="flag-icon">
+                                    <i class="material-icons">done</i>
+                                </span>
+                                <span class="flag-text">Aprobado</span>
+                            </span>
+                            <span class="flag rejected" *ngSwitchCase="documentSatus.rejected">
+                                <span class="flag-icon">
+                                    <i class="material-icons rejected">close</i>
+                                </span>
+                                <span class="flag-text">Rechazado</span>
+                            </span>
+                        </div>
+                        <mat-icon *ngIf="!this.panelOpenState" svgIcon="expand-icon" aria-hidden="true" color="white">
+                        </mat-icon>
+                        <mat-icon *ngIf="this.panelOpenState" svgIcon="collapse-icon" aria-hidden="true" color="white">
+                        </mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <!-- Contenido del colapsable -->
+                <div>
+                    <wnbo-document-validation (validateEmitter)="nextDocument($event)" [documentStyle]="'address-doc'" [documentResult]="addressResult"
+                        [prospectInfo]="prospectInfo" [type]="documentType.address" [requestId]="requestId">
+                    </wnbo-document-validation>
+                </div>
+                <!-- Contenido del colapsable -->
+            </mat-expansion-panel>
+            <!-- Comprobantes de ingresos -->
+            <mat-expansion-panel [expanded]="currentStep == 2" (opened)="currentStep = 2">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Comprobantes de ingresos</mat-panel-title>
+                    <mat-panel-description>
+                        <!-- Banderas de estado de revisión de documentos -->
+                        <div class="doc-val-status-flag" [ngSwitch]="sectionStatus.salary">
+                            <span class="flag approved" *ngSwitchCase="documentSatus.approved">
+                                <span class="flag-icon">
+                                    <i class="material-icons rejected">done</i>
+                                </span>
+                                <span class="flag-text">Aprobado</span>
+                            </span>
+                            <span class="flag rejected" *ngSwitchCase="documentSatus.rejected">
+                                <span class="flag-icon">
+                                    <i class="material-icons rejected">close</i>
+                                </span>
+                                <span class="flag-text">Rechazado</span>
+                            </span>
+                        </div>
+                        <mat-icon *ngIf="!this.panelOpenState" svgIcon="expand-icon" aria-hidden="true" color="white">
+                        </mat-icon>
+                        <mat-icon *ngIf="this.panelOpenState" svgIcon="collapse-icon" aria-hidden="true" color="white">
+                        </mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <!-- Contenido del colapsable -->
+                <div>
+                    <wnbo-document-validation (validateEmitter)="nextDocument($event)" [documentStyle]="'income-doc'" [documentResult]="incomeResult"
+                        [prospectInfo]="prospectInfo" [type]="documentType.income" [requestId]="requestId">
+                    </wnbo-document-validation>
+                </div>
+                <!-- Contenido del colapsable -->
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

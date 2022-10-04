@@ -1,0 +1,146 @@
+
+.backoffice-wrapper {
+    .request-id {
+        margin-bottom: 19px;
+        margin-left: 0;
+        font-size: 20px;
+        font-weight: 100;
+        color: #5B6670;
+        span {
+            font-weight: 400;
+        }
+    }
+    #cr-status-header{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    .form-section {
+        min-width: 390px;
+        margin: 0 20px;
+    }
+    .completion-percentage {
+        min-width: 373px;
+    }
+    .new-action-btn {
+        margin-right: 20px;
+        img {
+            margin-top: -4px;
+        }
+    }
+    .flag-status-container {
+        margin-bottom: 20px;
+    }
+    .application-general-status {
+        text-align: right;
+    }
+    .cr-status-body {
+        display: flex;
+        justify-content: space-between;
+    }
+    .prospect-information-container {
+        max-width: 476px;
+    }
+    .conditions-section {
+        div {
+            display: grid;
+            grid-template-columns: 30px auto;
+            .material-icons {
+                font-size: 16px;
+            }
+            &.negative {
+                .material-icons {
+                    color: #D80000;
+                } 
+            }
+            &.positive {
+                .material-icons {
+                    color: #2E980D;
+                } 
+            }
+        }
+        p {
+            font-size: 15px;
+            font-weight: 100;
+            color: #5B6670;
+            
+        }
+    }
+    .document-content {
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 40px 218px 40px;
+        font-weight: 100;
+        align-items: center;
+        height: 60px;
+        transition: 0.5s;
+        .document-progress {
+            text-align: center;
+            
+        }
+        .document-name {
+            font-size: 16px;
+        }
+        .download {
+            color: #009DD3;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.35px;
+            line-height: 16px;
+        }
+        .download-again{
+            color: #62B11D;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.35px;
+            line-height: 16px;
+        }
+        &:hover {
+            box-sizing: border-box;
+            border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 5px;
+            box-shadow: 0 1px 1px -1px rgba(136,152,167,0.45), 0 2px 9px 2px rgba(27,72,120,0.1);
+        }
+    }
+    .buttons-section {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-around;
+    }
+}
+.field-data {
+    height: 45.5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    label {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.54);
+    }
+    &.payment-capacity {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
+.form-field {
+    input {
+        text-align: left !important;
+    }
+}
+mat-form-field, mat-slider {
+    width: 100%;
+}
+
+textarea {
+    background-color: #F6F6F5 !important;
+    resize: none !important;
+    height: 100px;
+    padding: 5px 10px !important;
+    max-width: 97%;
+    margin-top: 25px !important;
+    color: rgba(0,0,0,0.5);
+    font-size: 14px;background-color: #F6F6F5;
+    font-weight: normal;
+}

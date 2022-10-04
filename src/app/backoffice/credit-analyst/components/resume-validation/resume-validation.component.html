@@ -1,0 +1,264 @@
+<div class="backoffice-wrapper" *ngIf="prospectInfo">
+    <div id="cr-status-header">
+        <div class="completion-percentage">
+            <div class="split-container">
+                <div class="percentage-number">100%</div>
+                <div class="prospect-info">
+                    <p class="prospect-name">{{prospectInfo.name}} {{prospectInfo.lastname}}
+                        {{prospectInfo.second_lastname}}</p>
+                    <p class="prospect-email">{{prospectInfo.email}}</p>
+                </div>
+            </div>
+            <div class="line-percentage">
+                <mat-progress-bar class="progress-line" mode="determinate" [value]="userProgressPercent">
+                </mat-progress-bar>
+            </div>
+        </div>
+        <div class="application-general-status">
+            <div class="flag-status-container {{cardStatus.class}}">
+                <span class="flag-status">{{cardStatus.label}}</span>
+            </div>
+            <div class="return-back-btn">
+                <button class="back-btn" mat-button (click)="backToBoard()"><i
+                        class="btn-icon material-icons">keyboard_arrow_left</i>Regresar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cr-status-body dp-flex-row">
+        <div class="resume-part">
+            <div class="dp-flex-row">
+                <div class="form-section">
+                    <form [formGroup]="dataForm">
+                        <div class="form-field">
+                            <mat-label>AJUSTAR MONTO DEL PRÉSTAMO</mat-label>
+                            <p class="just-field-data">{{(dataForm.controls.creditAmount.value | currency)}}</p>
+                        </div>
+                        <div class="slide" *ngIf="sliderOpts.max">
+                            <mat-slider [min]="sliderOpts.min" [max]="sliderOpts.max" [step]="sliderOpts.step"
+                                [value]="sliderAmount" (change)="keyDownreditAmount.next($event)"></mat-slider>
+                        </div>
+                        <div class="two-columns">
+                            <div class="form-field">
+                                <mat-label>TASA</mat-label>
+                                <mat-form-field>
+                                    <mat-select formControlName="interestRate" (selectionChange)="calculatePayment()">
+                                        <mat-option [value]="interest" *ngFor="let interest of interestOptions">
+                                            {{interest}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <mat-label>PLAZO</mat-label>
+                                <mat-form-field>
+                                    <mat-select formControlName="paymentDeadline"
+                                        (selectionChange)="calculatePayment()">
+                                        <mat-option [value]="deadLine" *ngFor="let deadLine of paymentDeadLineOptions">
+                                            {{deadLine}} meses</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="validation-item textarea-field">
+                            <textarea matInput formControlName="comments"
+                                placeholder="Agregar comentario al cliente"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="resume-links">
+                    <div class="link-container">
+                        <p class="title">Historial rediticio</p>
+                        <p class="data"> Score 600</p>
+                        <img src="assets/images/icon-download-grey.svg" alt=""> 
+                        <div class="line-percentage">
+                            <mat-progress-bar class="progress-line" mode="determinate" [value]="creditProgress">
+                            </mat-progress-bar>
+                        </div>
+                    </div>
+                    <div class="link-container" (click)="goTo(resumeNavigation[0])">
+                        <p class="title">Capacidad de pago</p>
+                        <p class="data"> {{paymentCapacity | currency}}</p>
+                        <div class="line-percentage">
+                            <mat-progress-bar class="progress-line" mode="determinate" [value]="paymentCapacityrogress">
+                            </mat-progress-bar>
+                        </div>
+                    </div>
+
+                    <div class="link-container" (click)="goTo(resumeNavigation[1])">
+                        <p class="title">Validación Documental</p>
+                        <p class="data">100%</p>
+                        <div class="line-percentage">
+                            <mat-progress-bar class="progress-line" mode="determinate" [value]="'100'">
+                            </mat-progress-bar>
+                        </div>
+                    </div>
+                    <div class="link-container" (click)="goTo(resumeNavigation[2])">
+                        <p class="title">Investigación</p>
+                        <p class="data">Resultado Evaluación</p>
+                        <div class="line-percentage">
+                            <mat-progress-bar class="progress-line" mode="determinate" [value]="'100'">
+                            </mat-progress-bar>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="buttons-section">
+                <button class="back-btn" mat-button (click)="openModalAction(3)">
+                    <img src="assets/images/reject-icon.svg" alt="">RECHAZAR</button>
+                <button mat-button class="new-action-btn" (click)="openModalAction(2)">
+                    <i class="btn-icon material-icons">done</i> APROBAR
+                </button>
+            </div>
+        </div>
+        <div class="prospect-information">
+            <mat-accordion class="prospect-info-accordion" multi=true>
+                <!-- Elemento del acordeón -->
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Datos del crédito</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Monto Solicitado</p>
+                            <p class="entry-value">{{creditData.credit_amount | currency}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Pago mensual</p>
+                            <p class="entry-value">{{creditData.credit_monthly_payment | currency}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Enganche</p>
+                            <p class="entry-value">{{creditData.credit_down_payment | currency}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Plazo</p>
+                            <p class="entry-value">{{creditData.credit_period_payment}} meses</p>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+                <!-- Elemento del acordeón -->
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Datos Laborales</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Ingreso Mensual Neto</p>
+                            <p class="entry-value">{{prospectInfo.net_monthly_income | currency}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Gasto Aproximado Mensual</p>
+                            <p class="entry-value">{{prospectInfo.approximate_monthly_egress | currency}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item complete-entry">
+                            <div>
+                                <p class="entry-name">Antigüedad</p>
+                                <p class="entry-value">{{prospectInfo.company_years_antique}} años
+                                    {{prospectInfo.company_months_antique}} meses</p>
+                            </div>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Datos del auto</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item complete-entry">
+                            <div>
+                                <p class="entry-name">Costo del auto</p>
+                                <p class="entry-value">{{prospectInfo.credit_car_cost | currency}}</p>
+                            </div>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Año</p>
+                            <p class="entry-value">{{prospectInfo.car_model_year }}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Marca</p>
+                            <p class="entry-value">{{prospectInfo.car_make_name}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Modelo</p>
+                            <p class="entry-value">{{prospectInfo.car_model_name }}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Versión</p>
+                            <p class="entry-value">{{prospectInfo.car_version }}</p>
+                        </mat-card>
+
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Información Personal</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Fecha de Nacimiento</p>
+                            <p class="entry-value">{{prospectInfo.birthdate | date}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">RFC</p>
+                            <p class="entry-value">{{prospectInfo.tax_id}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Teléfono</p>
+                            <p class="entry-value">{{prospectInfo.phone | formatNumber: '0'}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Nacionalidad</p>
+                            <p class="entry-value">{{prospectInfo.nacionality}}</p>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="this.prospectPanelOpenState = true"
+                    (closed)="this.prospectPanelOpenState = false" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Historial Crediticio</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="accordion-split-container">
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Deuda de corto plazo</p>
+                            <p class="entry-value">{{35000 | currency}}</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Score FICO</p>
+                            <p class="entry-value">800</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Número de créditos activos</p>
+                            <p class="entry-value">1</p>
+                        </mat-card>
+                        <mat-card class="entry-item">
+                            <p class="entry-name">Número de atrasos</p>
+                            <p class="entry-value">48 meses</p>
+                        </mat-card>
+                        <mat-card class="entry-item complete-entry">
+                            <div>
+                                <p class="entry-name">Deuda Total</p>
+                                <p class="entry-value">{{35000 | currency}}</p>
+                            </div>
+                        </mat-card>
+                        <mat-card class="entry-item complete-entry">
+                            <div>
+                                <p class="entry-name">Razones de círculo</p>
+                                <p class="entry-value">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
+                                    illum sit voluptatibus sint aperiam ullam facilis, modi tempore unde
+                                    dignissimos? Repudiandae iure, ratione repellat ad possimus ducimus perspiciatis
+                                    commodi necessitatibus.</p>
+                            </div>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>
